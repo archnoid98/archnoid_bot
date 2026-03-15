@@ -54,11 +54,13 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        base_footprint:
+          Value: true
         base_link:
           Value: true
-        caster_wheel:
+        camera_link:
           Value: true
-        caster_wheel_1:
+        camera_link_optical:
           Value: true
         caster_wheel_front:
           Value: true
@@ -66,7 +68,13 @@ Visualization Manager:
           Value: true
         chassis:
           Value: true
+        laser_frame:
+          Value: true
         left_wheel:
+          Value: true
+        map:
+          Value: true
+        odom:
           Value: true
         right_wheel:
           Value: true
@@ -76,20 +84,25 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          chassis:
-            caster_wheel:
-              {}
-            caster_wheel_1:
-              {}
-            caster_wheel_front:
-              {}
-            caster_wheel_rear:
-              {}
-          left_wheel:
-            {}
-          right_wheel:
-            {}
+        map:
+          odom:
+            base_link:
+              base_footprint:
+                {}
+              chassis:
+                camera_link:
+                  camera_link_optical:
+                    {}
+                caster_wheel_front:
+                  {}
+                caster_wheel_rear:
+                  {}
+                laser_frame:
+                  {}
+              left_wheel:
+                {}
+              right_wheel:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -110,7 +123,20 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_link_optical:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -125,6 +151,11 @@ Visualization Manager:
           Show Trail: false
           Value: true
         chassis:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -150,7 +181,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -193,7 +224,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.6224032640457153
+      Distance: 36.49668884277344
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
