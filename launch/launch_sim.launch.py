@@ -6,16 +6,16 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    package_name='archnoid_bot' 
+    package_name = 'archnoid_bot'
 
     rsp = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(package_name),'launch','rsp.launch.py'
-        )]), launch_arguments={'use_sim_time': 'true','use_ros2_control':'true'}.items()
+            get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
+        )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
 
     gazebo_params_file = os.path.join(
-        get_package_share_directory(package_name),'config','gazebo_params.yaml'
+        get_package_share_directory(package_name), 'config', 'gazebo_params.yaml'
     )
 
     gazebo = IncludeLaunchDescription(
@@ -51,10 +51,22 @@ def generate_launch_description():
         actions=[joint_broad_spawner],
     )
 
+    twist_mux_params = os.path.join(
+        get_package_share_directory(package_name), 'config', 'twist_mux.yaml'
+    )
+
+    twist_mux = Node(
+        package="twist_mux",
+        executable="twist_mux",
+        parameters=[twist_mux_params, {'use_sim_time': True}],
+        remappings=[('/cmd_vel_out', '/diff_cont/cmd_vel_unstamped')]
+    )
+
     return LaunchDescription([
         rsp,
         gazebo,
         spawn_entity,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
+        twist_mux,
     ])
