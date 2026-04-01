@@ -5,6 +5,10 @@ twist_mux:
         topic   : cmd_vel
         timeout : 0.5
         priority: 10
+      tracker:          # Add this section
+        topic   : cmd_vel_tracker
+        timeout : 0.5
+        priority: 50    # Higher than nav, lower than keyboard
       keyboard:
         topic   : cmd_vel_key
         timeout : 0.5
